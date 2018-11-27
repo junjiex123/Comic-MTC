@@ -42,11 +42,6 @@ android {
     buildTypes {
 
         debug {
-            minifyEnabled false
-            //压缩对齐，提高运行时的效率，也可以使用zipAlignEnabled true
-            zipAlignEnabled true
-            //可以调试
-            debuggable true
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -70,12 +65,6 @@ android {
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
-            //自定义apk名字
-            android.applicationVariants.all { variant ->
-                variant.outputs.all {
-                    outputFileName = "MTC_${defaultConfig.versionName}_${releaseTime()}_release.apk"
-                }
-            }
         }
     }
 }
@@ -94,7 +83,7 @@ configurations.all {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     androidTestImplementation rootProject.ext.dependencies.runner
@@ -115,7 +104,7 @@ dependencies {
 
     api rootProject.ext.dependencies.dagger
     annotationProcessor rootProject.ext.dependencies.dagger_annotationProcessor
-    provided rootProject.ext.dependencies.dagger_provided
+    compileOnly rootProject.ext.dependencies.dagger_provided
     api rootProject.ext.dependencies.dagger_support
     annotationProcessor rootProject.ext.dependencies.dagger_android_annotationProcessor
 
